@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "isSelected": true,
+      "productCover": "http://misc.360buyimg.com/user/myjd/lib/1.0.0/widget/global/i/logo_2017.png",
+      "productName": "Node.js",
+      "productInfo": "nodeInfo",
+      "productPrice": "50.00",
+      "productCount": "3"
+    },
+    {
+      "isSelected": false,
+      "productCover": "http://misc.360buyimg.com/user/myjd/lib/1.0.0/widget/global/i/logo_2017.png",
+      "productName": "Node2.js",
+      "productInfo": "nodeInfo2",
+      "productPrice": "100.00",
+      "productCount": "2"
+    }
+  ]
+}

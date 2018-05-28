@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button @click="fn($event)">button</button>
+    如果不传递参数 则不要写括号自动传递事件源，写括号不会传递事件源，需要手动$event
+</div>
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        //methods data 中的数据会全部放在vm上 并且名字不能冲突
+        methods:{
+          fn(){
+              console.log(this);
+          }
+        },
+        data: {
+            //放数据
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <form class="form-inline">
+        <div class="form-group">
+            <input class="form-control" type="checkbox" v-model="selected">{{selected}}
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="">爱好：</label>
+            <input class="form-control" type="checkbox" v-model="hobby" value="爱好1">爱好1
+            <input class="form-control" type="checkbox" v-model="hobby" value="爱好2">爱好2
+            <input class="form-control" type="checkbox" v-model="hobby" value="爱好3">爱好3
+        </div>
+        <br>
+        {{hobby}}
+    </form>
+
+    <form action="">
+        <label class="radio-inline">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" v-model="option" value="option1"> 1
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" v-model="option" value="option2"> 2
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" v-model="option" value="option3"> 3
+        </label>
+    </form>
+
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            selected:true,
+            hobby:["爱好1"],
+            option:"option3"
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <style>
+        .item-li{
+            border: 1px solid #ccc;
+            list-style:none;
+        }
+        .goods-item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cart-checkbox{
+            flex: 1;
+        }
+        .goods-item-cover{
+            flex: 1;
+        }
+        .goods-item-name{
+            flex: 1;
+        }
+        .goods-item-info{
+            flex: 1;
+        }
+        .goods-item-price{
+            flex: 1;
+        }
+        .goods-item-count{
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <div class="title">
+        全部商品{{productCount}}
+    </div>
+    <ul>
+        <li class="item-li">
+            <div class="goods-item">
+                <div class="cart-checkbox">选择</div>
+                <div class="goods-item-cover">封面</div>
+                <div class="goods-item-name">名称</div>
+                <div class="goods-item-info">信息</div>
+                <div class="goods-item-price">价格</div>
+                <div class="goods-item-count">数量</div>
+            </div>
+        </li>
+        <li class="item-li" v-for="product in products">
+            <div class="goods-item">
+                <div class="cart-checkbox"><input type="checkbox" v-model="product.isSelected"></div>
+                <div class="goods-item-cover"><img :src="product.productCover" alt=""></div>
+                <div class="goods-item-name">{{product.productName}}</div>
+                <div class="goods-item-info">{{product.productInfo}}</div>
+                <div class="goods-item-price">{{product.productPrice}}</div>
+                <div class="goods-item-count">{{product.productCount}}</div>
+            </div>
+        </li>
+    </ul>
+    <hr>
+    <div class="total-price">
+        总计：{{total}}
+    </div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        //专门用来发送ajax的方法
+        created(){
+            console.log(this);
+            console.log(1);
+            axios({
+                method: 'get',
+                url: '../data/car.json'
+            }).then(data => {
+                if (data.status === 200) {
+
+                    this.products = data.data.data;
+                }
+            }).catch(function (error) {
+                console.log(error);
+            })
+        },
+        computed: {
+            productCount: function () {
+                let count = 0;
+                this.products.length && this.products.forEach(function (item) {
+                    count += parseInt(item.productCount);
+                });
+                return count;
+            },
+            total:function () {
+                let total = 0;
+                this.products.length && this.products.forEach(function (item) {
+                    total += item.isSelected?parseInt(item.productCount)*parseInt(item.productPrice):0;
+                });
+                return total;
+            }
+        },
+        data: {
+            products: []
+        }
+
+    })
+</script>
+</body>
+</html>

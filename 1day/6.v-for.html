@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(fruit,index) in fruits" v-cloak>
+            {{index+1}}:{{fruit.name}}
+            <ul>
+                <li v-for="(color,index2) in fruit.colors" v-cloak>
+                    {{index+1}}.{{index2+1}}:{{color}}{{fruit.name}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            fruits: [{name: '香蕉', colors: ['green', 'yellow']}, {
+                name: "苹果",
+                colors: ['red', 'green', 'yellow']
+            }, {name: "西瓜", colors: ['pink']},]
+        }
+    })
+</script>
+</body>
+</html>

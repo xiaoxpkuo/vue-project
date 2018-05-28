@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Compile(el,vm) {
+        vm.$el=document.querySelector(el);
+        let fragment=document.createDocumentFragment();
+        while (child = vm.$el.firstChild){
+            fragment.appendChild(child);
+        }
+        function replace(fragment) {
+            Array.from(fragment.childNodes).forEach(function (node) {
+                let text = node.textContent;
+                let reg=/\{\{.*\}\}/;
+                if(node.nodeType === 3 && reg.test(text)){
+                    console.log(RegExp.$1); //a.a b
+                    let ary=RegExp.$1.split('.');//[a,a]
+                    let val = vm;
+                    ary.forEach(function (k) {
+                        val = val[k]
+                    });
+                    node.textContent = text.replace(/\{\{.*\}\}/,val);
+                }
+                if(node.childNodes){
+                    replace(node);
+                }
+            });
+        }
+
+        
+        vm.$el.appendChild(fragment);
+
+    }
+</script>
+</body>
+</html>
