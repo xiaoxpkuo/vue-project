@@ -5,31 +5,38 @@
     <title>Title</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <style>
-        .item-li{
+        .item-li {
             border: 1px solid #ccc;
-            list-style:none;
+            list-style: none;
         }
-        .goods-item{
+
+        .goods-item {
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .cart-checkbox{
+
+        .cart-checkbox {
             flex: 1;
         }
-        .goods-item-cover{
+
+        .goods-item-cover {
             flex: 1;
         }
-        .goods-item-name{
+
+        .goods-item-name {
             flex: 1;
         }
-        .goods-item-info{
+
+        .goods-item-info {
             flex: 1;
         }
-        .goods-item-price{
+
+        .goods-item-price {
             flex: 1;
         }
-        .goods-item-count{
+
+        .goods-item-count {
             flex: 1;
         }
     </style>
@@ -43,7 +50,7 @@
     <ul>
         <li class="item-li">
             <div class="goods-item">
-                <div class="cart-checkbox">选择</div>
+                <div class="cart-checkbox">全选<input type="checkbox" v-model="isSelectAll"></div>
                 <div class="goods-item-cover">封面</div>
                 <div class="goods-item-name">名称</div>
                 <div class="goods-item-info">信息</div>
@@ -57,14 +64,14 @@
                 <div class="goods-item-cover"><img :src="product.productCover" alt=""></div>
                 <div class="goods-item-name">{{product.productName}}</div>
                 <div class="goods-item-info">{{product.productInfo}}</div>
-                <div class="goods-item-price">{{product.productPrice}}</div>
-                <div class="goods-item-count">{{product.productCount}}</div>
+                <div class="goods-item-price">{{product.productPrice | toFixed(2)}}</div>
+                <div class="goods-item-count"><input type="number" v-model="product.productCount"></div>
             </div>
         </li>
     </ul>
     <hr>
     <div class="total-price">
-        总计：{{total}}
+        总计：{{total | toFixed(2)}}
     </div>
 </div>
 <script src="../node_modules/vue/dist/vue.js"></script>
@@ -88,18 +95,31 @@
                 console.log(error);
             })
         },
+        filters: {
+            toFixed(input, len){
+                return '￥' + parseInt(input).toFixed(len);
+            },
+        },
         computed: {
-            productCount: function () {
+            isSelectAll: {
+                get(){
+                    return this.products.every(item => item.isSelected)
+                },
+                set(bool){
+                    this.products.length && this.products.forEach(item => item.isSelected = bool);
+                }
+            },
+            productCount() {
                 let count = 0;
                 this.products.length && this.products.forEach(function (item) {
                     count += parseInt(item.productCount);
                 });
                 return count;
             },
-            total:function () {
+            total() {
                 let total = 0;
                 this.products.length && this.products.forEach(function (item) {
-                    total += item.isSelected?parseInt(item.productCount)*parseInt(item.productPrice):0;
+                    total += item.isSelected ? parseInt(item.productCount) * parseInt(item.productPrice) : 0;
                 });
                 return total;
             }
