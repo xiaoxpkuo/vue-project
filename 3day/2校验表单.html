@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="val">
+    <hr>
+    {{msg}}
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            val:''
+        },
+        computed:{
+            //默认调用get方法，必须要有return 不支持异步不能加载ajax
+            msg(){
+                if(this.val&&this.val.length<3){
+                    return '字符长度不能小于3！'
+                }else if(this.val&&this.val.length>8){
+                    return '字符长度不能大于8！'
+                }
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

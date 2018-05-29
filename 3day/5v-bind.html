@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <div :class="{x:flagX}">
+        div
+    </div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //绑定class style
+    //第一种:对象 第二种:数组
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            flagX:true
+        }
+    })
+</script>
+</body>
+</html>

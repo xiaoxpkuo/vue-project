@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <style>
+        .del{
+            text-decoration:line-through;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ToDoList</a>
+            </div>
+
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" v-cloak>还有 {{allLen}} 件事要完成</h3>
+                        <br>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="add">新增： </label>
+                                <input type="text" class="form-control" id="add" placeholder="" v-model="addItemCon" @keyup.enter="addItem">
+                                <!--<button @click="addItem" type="button" class="btn btn btn-primary">添加</button>-->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li v-for="todo in todos" class="list-group-item clearfix">
+                                <template v-if="">
+                                    <span :class="{'del':todo.isSelected}">
+                                    <input type="checkbox" v-model="todo.isSelected" v-cloak title=""> {{todo.title}}
+                                <button type="button" @click="deleteItem(todo)" class="pull-right btn btn-xs btn-danger">&times;</button>
+                                </span>
+                                </template>
+                                <template v-else="">
+                                    <input type="text" v-model="todo.title">
+                                </template>
+
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="active"><a href="#">全部任务</a></li>
+                            <li role="presentation"><a href="#">已完成</a></li>
+                            <li role="presentation"><a href="#">未完成</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="./todo.js"></script>
+</body>
+</html>

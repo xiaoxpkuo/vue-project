@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <div @click.capture="parent">
+        parent
+        <div @click="child">
+            child
+            <div @click.stop="grandson">
+                grandson
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //事件修饰符 先捕获后冒泡
+    //.capture监控捕获  .stop阻止冒泡 .prevent阻止默认行为
+    //.once只绑定一次
+    //.self事件源是自己的时候
+    let vm = new Vue({
+        el: "#app",
+        data: {},
+        methods: {
+            parent(){
+                alert('parent');
+            },
+            child(){
+                alert('child');
+            },
+            grandson(){
+                alert('grandson');
+            }
+        }
+    })
+</script>
+</body>
+</html>

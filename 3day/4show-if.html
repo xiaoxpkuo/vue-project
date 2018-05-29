@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    template标签是vue用来包裹元素用 没有实际意义 v-show不支持v-if支持
+    <hr>
+    <button type="button" @click="flag=!flag">click</button>
+    <br>
+    <template v-if="flag">
+        <label>注册</label>
+        <input type="text" v-model="reg" key="1">
+    </template>
+    <template v-else="flag">
+        <label>登陆</label>
+        <input type="text" v-model="sign" key="2">
+    </template>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            flag:true,
+            reg:'',
+            sign:''
+        }
+    })
+</script>
+</body>
+</html>
