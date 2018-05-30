@@ -9,6 +9,9 @@
             text-decoration:line-through;
             color: #ccc;
         }
+        [v-cloak]{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -18,6 +21,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">ToDoList</a>
+
             </div>
 
         </div><!-- /.container-fluid -->
@@ -26,6 +30,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
+                <h5>回车新增项目，双击修改项目</h5>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title" v-cloak>还有 {{allLen}} 件事要完成</h3>
@@ -41,15 +46,16 @@
                     </div>
                     <div class="panel-body">
                         <ul class="list-group">
-                            <li v-for="todo in todos" class="list-group-item clearfix">
-                                <template v-if="">
+                            <li @dblclick="actItem(todo)" v-for="todo in filterTodos" class="list-group-item clearfix">
+                                <template v-if="currentItem !== todo">
                                     <span :class="{'del':todo.isSelected}">
                                     <input type="checkbox" v-model="todo.isSelected" v-cloak title=""> {{todo.title}}
-                                <button type="button" @click="deleteItem(todo)" class="pull-right btn btn-xs btn-danger">&times;</button>
+                                <button type="button" @click="deleteItem(todo)"
+                                        class="pull-right btn btn-xs btn-danger">&times;</button>
                                 </span>
                                 </template>
-                                <template v-else="">
-                                    <input type="text" v-model="todo.title">
+                                <template v-if="currentItem === todo">
+                                    <input class="form-control" type="text" v-model="todo.title" @keyup.enter="subEditItem" v-focus="currentItem === todo" title="">
                                 </template>
 
 
@@ -58,9 +64,9 @@
                     </div>
                     <div class="panel-footer">
                         <ul class="nav nav-pills">
-                            <li role="presentation" class="active"><a href="#">全部任务</a></li>
-                            <li role="presentation"><a href="#">已完成</a></li>
-                            <li role="presentation"><a href="#">未完成</a></li>
+                            <li role="presentation" :class="{'active':hash === 'all'}"><a href="#/all">全部任务</a></li>
+                            <li role="presentation" :class="{'active':hash === 'finish'}"><a href="#/finish">已完成</a></li>
+                            <li role="presentation" :class="{'active':hash === 'unfinish'}"><a href="#/unfinish">未完成</a></li>
                         </ul>
                     </div>
                 </div>
