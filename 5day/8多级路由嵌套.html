@@ -9,22 +9,40 @@
 <div id="app" class="container">
     <hr>
     <div class="nav">
-        <router-link>home</router-link>
-        <router-link>detail</router-link>
+        <router-link to="/home"><h1>home</h1> </router-link>
+        <router-link to="/detail"><h1>detail</h1> </router-link>
     </div>
+    <hr>
     <router-view></router-view>
 </div>
+<template id="detail">
+    <div>
+        <hr>
+        <h2>detail</h2>
+        <hr>
+        <router-link to="/detail/profile">profile</router-link>
+        <router-link to="/detail/about">about</router-link>
+        <hr>
+        <router-view></router-view>
+    </div>
+</template>
 <script src="../node_modules/vue/dist/vue.js"></script>
 <script src="../node_modules/vue-router/dist/vue-router.js"></script>
 <script>
-    let home = {template: "<div>home</div>"};
-    let detail = {template: "<div>detail</div>"};
-    let profile = {template: "<div>profile</div>"};
-    let about = {template: "<div>about</div>"};
+    let home = {template: "<div><h2>home</h2></div>"};
+    let detail = {template: "#detail"};
+    let profile = {template: "<div><h3>profile</h3></div>"};
+    let about = {template: "<div><h3>about</h3></div>"};
     let routes = [
-        {path: "/", home},
-        {path: "/home", home},
-        {path: "/detail", detail},
+        {path: "/", component: home},
+        {path: "/home", component: home},
+        {
+            path: "/detail", component: detail, children: [
+            //孩子路由不带/ 带/表示一级路由
+            {path: "profile", component: profile},
+            {path: "about", component: about}
+        ]
+        },
     ];
     let router = new VueRouter({
         routes
