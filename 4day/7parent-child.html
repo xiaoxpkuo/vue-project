@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>
+        父亲：{{count}}
+        <child :count="count"></child>
+    </div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            count: 400
+        },
+        components: {
+            child: {
+                props: {
+                    count:{
+                        type:Number,
+                        require:true
+                    }
+                },
+                template: "<div>儿子:{{count}} <button @click='count = 800'>change</button></div>"
+            }
+        }
+    })
+</script>
+</body>
+</html>

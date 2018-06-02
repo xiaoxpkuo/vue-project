@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+父亲绑定一些事件，儿子触发这个事件，将参数传递过去，单向数据流
+父亲传递给儿子 :prop="prop"   儿子props取到属性 父亲到儿子单向数据
+父亲传递给儿子事件内容 @eventName="父亲的回调" 儿子执行this.$emit("eventName",data)
+<div id="app">
+    <div>
+        父亲：{{count}}
+        <child :count="count" @child-msg="things"></child>
+    </div>
+</div>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            count: 400
+        },
+        methods: {
+            things(val){
+                this.count = val;
+            }
+        },
+        components: {
+            child: {
+                props: {
+                    count: {
+                        type: Number,
+                        require: true
+                    },
+                    childMsg: {
+                        type: Function,
+                        require: true
+                    }
+                },
+                template: "<div>儿子:{{count}} <button @click='getMoney'>多要点钱</button></div>",
+                methods: {
+                    getMoney(){
+                        this.$emit('child-msg', this.count + 400)
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
