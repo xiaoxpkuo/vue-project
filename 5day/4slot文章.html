@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <panel color="danger">
+        <div slot="title">vue 组件slot</div>
+        <div slot="body">
+            <p>内容1</p>
+            <p>内容2</p>
+        </div>
+    </panel>
+</div>
+<template id="panel">
+    <div class="panel" :class="titleColor">
+        <div class="panel-heading">
+            <slot name="title"></slot>
+        </div>
+        <div class="panel-body">
+            <slot name="body"></slot>
+        </div>
+        <div class="panel-footer">
+            <slot>默认作者</slot>
+        </div>
+    </div>
+</template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let panel = {
+        template: "#panel",
+        props: {
+            color: {
+                type: String,
+                default: "primary"
+            }
+        },
+        computed: {
+            titleColor(){
+                return "panel-" + this.color;
+            }
+        }
+    };
+    let vm = new Vue({
+        el: "#app",
+        data: {},
+        components: {
+            panel
+        }
+    })
+</script>
+</body>
+</html>

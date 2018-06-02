@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <style>
+        .router-link-active{color:red}
+    </style>
+</head>
+<body>
+<div id="app" class="container">
+    路由：访问不同的路径 返回不同的结果
+    多页面 单页面（SPA single page application）
+
+    前端路由2种实现方式：
+    1.hash www.baidu.com#/index/home 哈希 不会跳转错误404 不利于SEO 开发时使用
+    2.H5API history.pushStatus www.baidu.com/index/home 会404 有利于SEO  上线时使用
+    <hr>
+    <div class="nav">
+        <router-link to="/home" tag="button">首页</router-link>
+        <router-link to="/list">列表页</router-link>
+    </div>
+    <hr>
+    <router-view></router-view>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = { template:"<div>首页</div>"};
+    let list = { template:"<div>列表页</div>"};
+    let routes=[ //路由映射表 配置路径和组件的关系
+        {
+            path:"",
+            component:home
+        },{
+            path:"/home",
+            component:home
+        },
+        {
+            path:"/list",
+            component:list
+        },
+        /*{
+            path:"*",
+            component:list //路径不会变 只是内容变 想要路径变组件也切换
+        },*/
+        {
+            path:"*",
+            redirect:"/home" //路径不会变 只是内容变 想要路径变组件也切换
+        }
+    ];
+    let router = new VueRouter({
+        /*mode:"history",*/
+        routes
+    });
+    let vm = new Vue({
+        el: "#app",
+        data: {},
+        router
+    })
+</script>
+</body>
+</html>

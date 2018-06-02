@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    插槽 slot
+    <hr>
+    <modal>
+        <!--<h1>modal h1</h1>-->
+        <p slot="p2" @click="parent">内容2</p>
+        <p slot="p1">内容1</p>
+    </modal>
+</div>
+<!--模板中只有一个根源素-->
+<!--可以通过元素或者属性定制模板-->
+<template id="modal">
+    <div>
+        <!--<slot>这是默认内容</slot>-->
+        <slot name="p1">默认p1</slot>
+        <slot name="p2">默认p2</slot>
+    </div>
+</template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let modal = {
+        template: "#modal"
+    };
+
+    let vm = new Vue({
+        el: "#app",
+        data: {},
+        components: {
+            "modal": modal
+        },
+        methods:{
+            parent(){
+                console.log('我是父级fn');
+            }
+        }
+    })
+</script>
+</body>
+</html>

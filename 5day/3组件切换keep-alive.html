@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app" class="container">
+    <hr>
+    <input type="radio" value="home" v-model="status"> home
+    <input type="radio" value="list" v-model="status"> list
+    <hr>
+    自带的组件标签 正常组件切换时 或销毁重新渲染
+    <hr>
+    <keep-alive>
+        <component :is="status"></component>
+    </keep-alive>
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let home={
+        template:"<div>home</div>",
+        mounted(){
+            console.log("mounted home");
+        },
+        beforeDestroy(){
+            console.log("beforeDestroy home");
+        }
+    };
+    let list={
+        template:"<div>list</div>",
+        mounted(){
+            console.log("mounted list");
+        },
+        beforeDestroy(){
+            console.log("beforeDestroy list");
+        }
+
+    };
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            status:"home"
+        },
+        components:{
+            home,
+            list
+        }
+    })
+</script>
+</body>
+</html>

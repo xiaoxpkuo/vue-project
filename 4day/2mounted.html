@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <p ref="myp">{{msg}}</p>
+    <p ref="myp">{{msg1}}</p>
+    <div ref="wrap">
+        <div v-for="item in arr">{{item}}</div>
+    </div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            msg: 'a',
+            msg1: 'a1',
+            arr: [1, 2, 3]
+        },
+        mounted(){
+            this.$nextTick(() => {
+                console.log(vm);
+            });
+            console.log(this.$refs.myp);//单次只能取一个
+            //v-for 可以取多个
+            console.log(this.$ref.wrap.length); //=>3
+            this.arr=[1,2,3,4]; //dom渲染需要时间 异步
+            console.log(this.$ref.wrap.length); //=>还是3 有bug需要调用$nextTick()
+
+        }
+    })
+
+</script>
+</body>
+</html>

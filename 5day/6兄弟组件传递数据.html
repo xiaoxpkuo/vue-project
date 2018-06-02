@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    使用new Vue 当做共有的载体 传递事件
+    <hr>
+    <myred></myred>
+    <mygreen></mygreen>
+</div>
+<template id="myred">
+    <div>
+        <h1>{{color}}</h1>
+        <button @click="changeRed">变红</button>
+    </div>
+
+</template>
+<template id="mygreen">
+    <div>
+        <h1>{{color}}</h1>
+        <button @click="changeGreen">变绿</button>
+    </div>
+
+</template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let eventBus = new Vue;
+    let myred = {
+        template: "#myred",
+        data(){
+            return {
+                color: "red",
+                old: "red"
+            }
+        },
+        methods: {
+            changeRed(){
+                eventBus.$emit("change", this.old);
+            }
+        },
+        created(){
+            eventBus.$on("change", (val) => {
+                this.color = val;
+            })
+        }
+    };
+    let mygreen = {
+        template: "#mygreen",
+        data(){
+            return {
+                color: "green",
+                old: "green"
+            }
+        },
+        methods: {
+            changeGreen(){
+                eventBus.$emit("change", this.old);
+            }
+        },
+        created(){
+            eventBus.$on("change", (val) => {
+                this.color = val;
+            })
+        }
+    };
+    let vm = new Vue({
+        el: "#app",
+        data: {},
+        components: {
+            myred,
+            mygreen
+        }
+    })
+</script>
+</body>
+</html>

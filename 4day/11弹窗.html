@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+template标签文档片段 用于存储components中的html
+<div id="app">
+    <button type="button" @click="openLayer">弹窗</button>
+    <my-dialog v-show="show" :show="show" @close="fn">
+
+    </my-dialog>
+</div>
+<template id="my-dialog">
+    <div>我是弹窗内容
+        <button type='button' @click='closeLayer'>关闭弹窗</button>
+    </div>
+</template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            show: false
+        },
+        methods: {
+            openLayer(){
+                this.show = true;
+            },
+            fn(bool){
+                this.show = bool;
+            }
+        },
+        components: {
+            "my-dialog": {
+                data(){
+                    return {}
+                },
+                template: "#my-dialog",
+                props: ['show'],
+                methods: {
+                    closeLayer(){
+                        this.$emit('close', false);
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

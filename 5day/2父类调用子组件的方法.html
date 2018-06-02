@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    使用ref放在组件中 获取的是组件的实例 可以调用组件实例的方法和属性
+    <loading ref="load"></loading>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let loading = {
+        template: "<div v-show='flag'>疯狂加载中……</div>",
+        data(){
+            return {
+                flag: true
+            }
+        },
+        methods: {
+            hideLoad(){
+                this.flag = false
+            }
+        }
+    };
+    let vm = new Vue({
+        el: "#app",
+        data: {},
+        mounted(){
+            setTimeout(() => {
+                this.$refs.load.hideLoad();
+            }, 2000)
+        },
+        components: {
+            loading: loading
+        }
+    })
+</script>
+</body>
+</html>

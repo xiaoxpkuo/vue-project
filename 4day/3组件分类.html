@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    页面级别：1.一个页面是一个组件2.将可以复用的部分抽离出来
+    一个自定义标签 就是一个组件
+
+
+    用法划分：
+    1.全局组件 声明一次 在任何地方使用 写插件时使用全局组件
+    2.必须告诉这个组件属于谁
+    <my-handsome></my-handsome>
+    <!--<div>handsome <span>my</span></div>-->
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //组件名 首字母可以大写 建议都小写不要大写 多个单词用-
+    Vue.component('my-handsome',{//一个对象可以看成一个组件
+        template:"<div>handsome <span>my</span>{{msg}}</div>",
+        data(){//组件中的数据必须是函数类型 返回一个示例作为组件的数据
+            return {
+                msg :"my-handsome"
+            }
+
+        }
+    });
+    let vm = new Vue({
+        el: "#app",
+        data: {}
+    })
+</script>
+</body>
+</html>
