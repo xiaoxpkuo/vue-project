@@ -21,3 +21,6 @@
 ##webpack开发服务器
 -这里面内置了服务，可以帮我们启动一个端口号，当代码更新时，可以自动打包（内存中，不是实体文件，读写实体文件 消耗性能）
 `npm install webpack-dev-server --save-dev`
+
+
+##编译.vue文件 需要安装vue-loader 解析vue模板vue-template-compiler(vue会自动调用compiler)

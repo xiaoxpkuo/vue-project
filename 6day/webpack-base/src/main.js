@@ -1,4 +1,15 @@
-import str from './a';
-console.log(str(1)(2)(3));
+import Vue from 'vue';
 
-import './css/reset.css';
+import App from './App.vue';
+console.log(App);
+
+new Vue({
+    el: "#app",
+    render: (h) => h(App)
+    /*render:function (c) {
+        return c('h1',[
+            'hello2',
+            c('span','头条')
+        ])
+    }*/
+});
