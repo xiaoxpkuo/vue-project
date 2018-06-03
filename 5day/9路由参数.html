@@ -20,7 +20,17 @@
 <script src="../node_modules/vue/dist/vue.js"></script>
 <script src="../node_modules/vue-router/dist/vue-router.js"></script>
 <script>
-    let article = {template: "<div>第 {{$route.params.c}} 篇文章</div>",};
+    let article = {
+        template: "<div>第 {{$route.params.c}} 篇文章</div>",
+        created(){
+
+        },
+        watch:{
+            $route(){
+                alert("ajax")
+            }
+        }
+    };
     let routes = [
         {path: "/", component: article},
         {path: "/article/:c", component: article}
