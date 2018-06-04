@@ -1,6 +1,7 @@
 <template>
     <div>
         home
+        <button @click="show">notify</button>
     </div>
 </template>
 <script>
@@ -8,7 +9,11 @@
         data(){
             return {}
         },
-        methods: {},
+        methods: {
+            show(){
+                this.$notify("新信息",1000)
+            }
+        },
         computed: {},
         components: {}
     }
