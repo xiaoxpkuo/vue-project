@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <i class="iconfont icon-ybbindex"></i>
-    <i class="iconfont icon-shoucang"></i>
-    <i class="iconfont icon-add"></i>
-    <i class="iconfont icon-list"></i>
     <router-view></router-view>
     <Tab></Tab>
   </div>
