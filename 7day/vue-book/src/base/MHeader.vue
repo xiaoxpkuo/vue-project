@@ -30,11 +30,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: lightblue;
+    background: #232326;
     text-align: center;
     height: 40px;
     line-height: 40px;
     font-weight: bold;
+    color: #fff;
     i{
       position: absolute;
       left: 10px;
