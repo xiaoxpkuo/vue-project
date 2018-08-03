@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <h3>嵌套路由</h3>
+        <ul>
+            <router-link tag="li" to="/user/1">user</router-link>
+            <router-link tag="li" to="/user/1/profile">profile</router-link>
+            <router-link tag="li" to="/user/1/post">post</router-link>
+        </ul>
+
+        <router-view></router-view>
+    </div>
+</body>
+<script src="./lib/vue.min.js"></script>
+<script src="./lib/vue-router.min.js"></script>
+<script>
+    const User = {
+        template:`<div>User:{{$route.params.id}} <br> <router-view></router-view></div>`
+    };
+    const UserNone = {
+        template:`<div>UserNone</div>`
+    };
+    const Profile = {
+        template:`<div>Profile:{{$route.path}}</div>`
+    };
+    const Post = {
+        template:`<div>Post:{{$route.path}}</div>`
+    };
+    const routes = [
+        {
+            path:'/user/:id',
+            component:User,
+            children:[
+                {
+                    path:'',//为空时 路径为***!/user/1时 匹配到
+                    component:UserNone
+                },
+                {
+                    path:'profile',//路径为***/user/1/profile时 匹配到
+                    component:Profile
+                },
+                {
+                    path:'post',
+                    component:Post
+                },
+            ]
+        }
+
+    ];
+    const router = new VueRouter({
+        routes
+    });
+    let vm= new Vue({
+        el:'#app',
+        router
+    });
+</script>
+</html>

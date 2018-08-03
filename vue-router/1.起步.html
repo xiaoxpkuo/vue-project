@@ -10,6 +10,7 @@
         <p>
             <router-link to="/foo">go to foo</router-link>
             <router-link to="/bar">go to bar</router-link>
+            <router-link to="/user/1">go to bar</router-link>
 
         </p>
         <router-view></router-view>
@@ -24,16 +25,30 @@
     const Bar = {
         template:"<div>bar content</div>"
     };
+    const User = {
+        template:"<div>user: {{$route.params.id}}</div>"
+    };
     const routes =[
-        {path:"/foo", component: Foo},
-        {path:"/bar", component: Bar},
+        {path:"/foo", component: Foo,meta:'foo'},
+        {path:"/bar", component: Bar,meta:'bar'},
+        {path:"/user/:id", component: User,meta:'user'},
     ];
     const router = new VueRouter({
         routes
     });
     let vm = new Vue({
         el:"#app",
-        router
+        router,
+        created(){
+            console.log(this.$route);
+        },
+        watch:{
+            $route(newPath,oldPath){
+                //console.log(this.$route);
+                console.log(this.$route.params);
+            }
+        }
     });
+    //动态路径参数 ( /user/:id this.$route.params )
 </script>
 </html>
