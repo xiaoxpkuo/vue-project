@@ -7,10 +7,22 @@
 -iconfont图标
 -meta:vp快速生成手机端meta快捷键
 
+## 路由元信息
+new router({
+  path:"/",
+  components:"home",
+  meta:{
+    keepAlive:true
+  }
+})
+
+<keep-alive>
+  <router-view v-if="$router.meta.keepAlive"></router-view>
+</keep-alive>
+</keep-alive>
 
 
-
-
+##vuex是为大型项目 主要是状态管理，将数据统一管理
 
 
 

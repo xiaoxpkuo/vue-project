@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <todo-item :todo="todo" v-for='todo in todos' data-date-picker="activated"></todo-item>
+    </ul>
+
+
+    <br>
+    <input type="text" id="input" v-focus>
+
+    <br>
+    a.school:{{a.school}}
+    {{a.a}}
+    {{a.b}}
+    b:{{}}
+    <update-item></update-item>
+
+    <span v-pre>{{todos}}</span>
+</div>
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script>
+    /*Vue.filter('json', function (value) {
+        if (!value) return '';
+        return JSON.stringify(value);
+    });*/
+    Vue.component("todo-item", {
+        props: ['todo'],
+        template: "<li>{{proText}}{{todo.text}}</li>",
+        computed: {
+            proText(){
+                return "第" + this.todo.pro + "步："
+            }
+        }
+
+    });
+
+    Vue.component("update-item", {
+        template: "<div>{{msg}} <button @click='updateMsg()'>updateMsg</button></div>",
+        data: function () {
+            return {
+                msg: "没有更新"
+            }
+        },
+        methods: {
+            updateMsg(){
+                this.msg = "更新完毕";
+                console.log('1' + this.$el.textContent);
+                console.log(new Date().getTime());
+                this.$nextTick(function () {
+                    console.log('2' + this.$el.textContent);
+                    console.log(new Date().getTime());
+                    //相差1-3毫秒
+                });
+            }
+        }
+    });
+    Vue.directive('focus', {
+        inserted:function (el) {
+            el.focus();
+        }
+    });
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            todos: [
+                {text: '学习 JavaScript', pro: 2},
+                {text: '学习 Vue', pro: 1},
+                {text: '整个牛项目', pro: 3}
+            ],
+            a: {}
+        }
+    });
+
+
+    let temp = {};
+    let obj = {};
+    Object.defineProperty(obj, "name", {
+        get(){
+            return temp.name
+        },
+        set(value){
+            temp.name = value;
+            input.value = value;
+        }
+    });
+
+    //初始化
+    input.value = obj.name;
+
+    //监听
+    document.getElementById('input').addEventListener('input', function () {
+        obj.name = this.value
+    })
+
+    //无效
+    //vm.$data.a.school = 'zf';
+
+    //vm.$set(vm.a, 'school', 'zf2');
+    //无效
+    //vm.$set(vm,'b','plan b')
+
+    vm.a = Object.assign({}, vm.a, {a: 1, b: 2})
+
+</script>
+</body>
+</html>

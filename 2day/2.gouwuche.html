@@ -112,7 +112,9 @@
             productCount() {
                 let count = 0;
                 this.products.length && this.products.forEach(function (item) {
-                    count += parseInt(item.productCount);
+                    if(item.isSelected){
+                        count += parseInt(item.productCount);
+                    }
                 });
                 return count;
             },

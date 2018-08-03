@@ -36,7 +36,9 @@ const vm = new Vue({
     },
     computed: {
         allLen(){
-            return this.todos.length
+            return this.todos.filter(function (item) {
+                return !item.isSelected
+            }).length
         },
         filterTodos(){
             if (this.hash === 'finish') {
