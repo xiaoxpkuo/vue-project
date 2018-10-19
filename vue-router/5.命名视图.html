@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--上下布局之后 左右布局-->
+    <router-view></router-view>
+</div>
+</body>
+<script src="./lib/vue.min.js"></script>
+<script src="./lib/vue-router.min.js"></script>
+<script>
+    const LeftNav = {
+        template: `<div><router-link to="/settings/email">to-email</router-link><br><router-link to="/settings/profile">to-profile</router-link></div>`
+    };
+    const HeaderNav = {
+        template: `<div>my-header <br><br><br><br></div>`
+    };
+    const Settings = {
+        template: `<div><HeaderNav/><LeftNav/><router-view></router-view><router-view name="helper"></router-view></div>`,
+        components:{
+            HeaderNav,
+            LeftNav
+        }
+    };
+    const Email = {
+        template: "<div>Email contents</div>"
+    };
+    const Profile = {
+        template: "<div>Profile contents</div>"
+    };
+    const Helper = {
+        template: "<div>Helper contents</div>"
+    };
+    const routes = [
+        {
+            path: "/settings",
+            component: Settings,
+            children:[
+                {
+                    path:"/settings/email",
+                    component:Email
+                },
+                {
+                    path:"/settings/profile",
+                    components:{
+                        default:Profile,
+                        helper:Helper
+                    }
+                }
+            ]
+        }
+    ];
+    const router = new VueRouter({
+        routes
+    });
+    router.beforeResolve(function (to,from,next) {
+        console.log('beforeResolve');
+        next();
+    });
+    router.beforeEach(function (to,from,next) {
+        console.log('beforeEach');
+        next();
+    });
+
+
+    router.push('/settings');
+    let vm = new Vue({
+        el: "#app",
+        router,
+        created(){
+        },
+        watch: {}
+    });
+
+
+
+</script>
+</html>
